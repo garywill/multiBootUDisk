@@ -1,0 +1,163 @@
+# This is a sample menu.lst file. You should make some changes to it.
+# The old install method of booting via the stage-files has been removed.
+# Please install GRLDR boot strap code to MBR with the bootlace.com
+# utility under DOS/Win9x or Linux.
+
+color blue/green yellow/red white/magenta white/magenta
+timeout 10
+default /default
+
+
+# ####################################
+# ####################################
+
+# title kernel into /clonezilla.iso
+# map --heads=0 --sectors-per-track=0 /images/clonezilla.iso (0xff) || map --mem --heads=0 --sectors-per-track=0 /images/clonezilla.iso (0xff)
+# map --hook
+# kernel (0xff)/live/vmlinuz boot=live iso-scan/filename=/images/clonezilla.iso username=user config quiet noswap edd=on nomodeset noeject locales= keyboard-layouts= ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_batch=no vga=788 ip=  nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.enable_fbdev=no
+# initrd (0xff)/live/initrd.img
+
+#need to put clonezilla iso's live folder into udisk
+title Clonezilla live (Default settings, VGA 800x600)
+set gfxmode=auto
+insmod efi_gop
+insmod efi_uga
+insmod gfxterm
+terminal_output gfxterm
+kernel /live/vmlinuz boot=live username=user config quiet noswap edd=on nomodeset noeject locales= keyboard-layouts= ocs_live_run="ocs-live-general" ocs_live_extra_param="" ocs_live_batch=no vga=788 ip=  nosplash i915.blacklist=yes radeonhd.blacklist=yes nouveau.blacklist=yes vmwgfx.enable_fbdev=no
+initrd /live/initrd.img 
+boot
+
+
+# title /ntldr
+# chainloader /ntldr
+# boot
+
+# title wxpe/ntldr
+# chainloader wxpe/ntldr
+# boot
+
+
+title chainload win8pe.iso
+map /images/win8pe.iso (hd32) || map --mem /images/win8pe.iso (hd32) 
+map --hook
+chainloader (hd32)
+boot
+
+
+
+title chainload wmzwinpe.iso
+map (hd0) (hd1)
+map (hd1) (hd0)
+map --mem /images/firadisk.img (fd1)
+map --mem (md)0x6000+800 (fd0)
+map --mem /images/wmzwinpe.iso (0xff)
+map --hook
+dd if=(fd1) of=(fd0) count=1
+chainloader (0xff)
+boot
+
+#need to put puppy linux iso content in puppy folder
+title Puppy Linux
+find --set-root /puppy/vmlinuz
+kernel /puppy/vmlinuz    PSUBDIR=puppy
+initrd /puppy/initrd.gz
+
+
+title /bootmgr
+chainloader /bootmgr
+boot
+
+title chainload winxp.iso
+map (hd0) (hd1)
+map (hd1) (hd0)
+map --mem /images/firadisk.img (fd1)
+map --mem (md)0x6000+800 (fd0)
+map --mem /images/winxp.iso (0xff)
+map --hook
+dd if=(fd1) of=(fd0) count=1
+chainloader (0xff)
+
+title Continue XP setup
+map (hd0) (hd1)
+map (hd1) (hd0)
+map --mem /images/winxp.iso (0xff)
+map --hook
+chainloader (hd0)+1
+
+
+title kernel into miniubuntu.iso
+map --heads=255 --sectors-per-track=63 /images/miniubuntu.iso (0xff) || map --mem --heads=255 --sectors-per-track=63 /images/miniubuntu.iso (0xff)
+map --hook
+kernel (0xff)/casper/vmlinuz boot=casper iso-scan/filename=/images/miniubuntu.iso
+initrd (0xff)/casper/initrd.lz
+boot
+
+
+title kernel into xubuntu.iso
+map --heads=0 --sectors-per-track=0 /images/xubuntu.iso (0xff) || map --mem --heads=0 --sectors-per-track=0 /images/xubuntu.iso (0xff)
+map --hook
+kernel (0xff)/casper/vmlinuz boot=casper iso-scan/filename=/images/xubuntu.iso
+initrd (0xff)/casper/initrd.lz
+boot
+
+
+# ####################################
+# ####################################
+# ####################################
+# ####################################
+# ####################################
+# ####################################
+
+title find and load NTLDR of Windows NT/2K/XP
+find --set-root --ignore-floppies --ignore-cd /ntldr
+map () (hd0)
+map (hd0) ()
+map --rehook
+find --set-root --ignore-floppies --ignore-cd /ntldr
+chainloader /ntldr
+savedefault --wait=2
+
+title find and load BOOTMGR of Windows VISTA
+find --set-root --ignore-floppies --ignore-cd /bootmgr
+map () (hd0)
+map (hd0) ()
+map --rehook
+find --set-root --ignore-floppies --ignore-cd /bootmgr
+chainloader /bootmgr
+savedefault --wait=2
+
+title find and load CMLDR, the Recovery Console of Windows NT/2K/XP
+find --set-root --ignore-floppies --ignore-cd /cmldr
+map () (hd0)
+map (hd0) ()
+map --rehook
+find --set-root --ignore-floppies --ignore-cd /cmldr
+chainloader /cmldr
+#####################################################################
+# write string "cmdcons" to memory 0000:7C03 in 2 steps:
+#####################################################################
+# step 1. Write 4 chars "cmdc" at 0000:7C03
+write 0x7C03 0x63646D63
+# step 2. Write 3 chars "ons" and an ending null at 0000:7C07
+write 0x7C07 0x00736E6F
+savedefault --wait=2
+
+title find and load IO.SYS of Windows 9x/Me
+find --set-root /io.sys
+chainloader /io.sys
+savedefault --wait=2
+
+
+title commandline
+commandline
+
+
+title reboot
+reboot
+
+title halt
+halt
+
+
+
