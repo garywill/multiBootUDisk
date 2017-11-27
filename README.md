@@ -1,6 +1,12 @@
 # Multi boot Udisk
 
-Make a multi boot udisk on Linux. Can boot windows/linux. Can boot from a .iso file, in this case no need extracting to udisk.
+Make a multi boot udisk on Linux. 
+
+Can boot windows/linux. 
+
+Can boot from a .iso file, in this case no need extracting to udisk. 
+
+Still able to use this udisk space as general storage.
 
 ## How it work
 `syslinux` as udisk's legacy bios boot.
@@ -31,12 +37,11 @@ Procedure: (Following can be done by the shell script.)
 5. Write `syslinux` MBR to target `/dev/sdb`
 6. Copy `syslinux` files, `grub4dos` files and others to `/dev/sdb1`
 
-
-
-Manually put .iso files (you prepare it) to udisk. This should be done before you put other unrelated files (your photo, music etc. for general storage) into udisk, to make sure the iso is psysically continous and not far away from MBR.
+Manually put .iso files (you prepare it) to udisk. 
 
 Not everything support booting from iso file. For some isos you need to extract them and put files into udisk (I have no idea which, try it yourself or google "grub4dos boot iso [your boot iso]" )
 
+Above should be done before you put other unrelated files (your photo, music etc. for general storage) into udisk, to make sure the files is physically continous and not far away from MBR.
 
 `grub4dos/menu.lst` is the key to success. Read it and modify it according to your need.
 
