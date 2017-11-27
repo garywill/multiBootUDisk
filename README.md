@@ -10,11 +10,14 @@ Still able to use this udisk space as general storage.
 
 ## How it work
 `syslinux` as udisk's legacy bios boot.
+
 `syslinux` menu has an option to boot into `grub4dos`
+
 `grub4dos` menu has many options to various maintain/tool/system/installation
 
 ### Why this way?
 `syslinux` is a legacy bootloader which is competitable for many machines.
+
 `grub4dos`supports iso file boot. 
 
 ## What it can boot
@@ -23,8 +26,8 @@ I have successfully done these now:
 1. Clonezilla , a linux cloning tool
 2. Windows PE (support iso boot)
 3. puppy linux
-4. Windows 7/8 Installation
-5. Windows XP Installation (workaround. some machines fail)
+4. Windows 7/8 and it's Installation
+5. Windows XP and it's Installation (support iso boot) (workaround. some machines fail)
 6. Ubuntu (support iso boot)
 
 ## Usage
@@ -43,5 +46,5 @@ Not everything support booting from iso file. For some isos you need to extract 
 
 Above should be done before you put other unrelated files (your photo, music etc. for general storage) into udisk, to make sure the files is physically continous and not far away from MBR.
 
-`grub4dos/menu.lst` is the key to success. Read it and modify it according to your need.
+`grub4dos/menu.lst` is the key to success. It tells you where to put your files. Read it and modify it according to your need.
 
