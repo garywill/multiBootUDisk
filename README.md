@@ -9,9 +9,9 @@ Can boot from a .iso file, in this case no need extracting to udisk.
 Still able to use this udisk space as general storage.
 
 ## How it work
-`syslinux` as udisk's legacy bios boot.
+[`syslinux`](http://www.syslinux.org) as udisk's legacy bios boot.
 
-`syslinux` menu has an option to boot into `grub4dos`
+`syslinux` menu has an option to boot into [`grub4dos`](http://grub4dos.sourceforge.net/) (a fork of grub) ([Github page](https://github.com/chenall/grub4dos))
 
 `grub4dos` menu has many options to various maintain/tool/system/installation
 
@@ -48,3 +48,4 @@ Above should be done before you put other unrelated files (your photo, music etc
 
 `grub4dos/menu.lst` is the key to success. It tells you where to put your files. Read it and modify it according to your need.
 
+Note: `syslinux` and `grub4dos` binaries are not newest in this repo.
