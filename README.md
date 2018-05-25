@@ -1,28 +1,28 @@
 # Multi boot Udisk
 
-Make a multi boot udisk on Linux. 
+Make a multi-boot udisk (usb flash disk) on Linux. 
 
-Can boot windows/linux. 
+Can boot Windows/Linux. 
 
-Can boot from a .iso file, in this case no need extracting to udisk. 
+Can boot from a `.iso` file, in this case no need extracting to udisk. 
 
-Still able to use this udisk space as general storage.
+Still able to use this udisk space as general storage. (All files are on an FAT32 partition)
 
 ## How it work
-[`syslinux`](http://www.syslinux.org) as udisk's legacy bios boot.
+Uses [syslinux](http://www.syslinux.org) as udisk's legacy BIOS bootloader.
 
-`syslinux` menu has an option to boot into [`grub4dos`](http://grub4dos.sourceforge.net/) (a fork of grub) ([Github page](https://github.com/chenall/grub4dos))
+On syslinux menu, an option to boot [grub4dos](http://grub4dos.sourceforge.net/) (a fork of grub) ([Github page](https://github.com/chenall/grub4dos)).
 
-`grub4dos` menu has many options to various maintain/tool/system/installation
+On grub4dos menu there are many options to boot various maintain tools, systems, system installations.
 
 ### Why this way?
 `syslinux` is a legacy bootloader which is competitable for many machines.
 
-`grub4dos`supports iso file boot. 
+`grub4dos` supports `.iso` file boot. 
 
 ## What it can boot
 
-I have successfully done these now:
+For now I successfully boot:
 1. Clonezilla , a linux cloning tool
 2. Windows PE (support iso boot)
 3. puppy linux
@@ -32,20 +32,20 @@ I have successfully done these now:
 
 ## Usage
 
-Procedure: (Following can be done by the shell script.)
-1. Make msdos partition table on udisk
-2. Make a partition on udisk, like `/dev/sdb1`
+Procedure: (Following can be done by the shell script `makemultiboor.sh`.)
+1. Make an msdos partition table on udisk
+2. Make a partition on udisk, for example `/dev/sdb1`
 3. Set `/dev/sdb1` boot flag
 4. Format `/dev/sdb1` as FAT32
 5. Write `syslinux` MBR to target `/dev/sdb`
-6. Copy `syslinux` files, `grub4dos` files and others to `/dev/sdb1`
+6. Copy `syslinux` files, `grub4dos` files and others to `/dev/sdb1` (copy all files in `ubasic` folder to udisk)
 
-Manually put .iso files (you prepare it) to udisk. 
+Manually put your `.iso` files to udisk. 
 
-Not everything support booting from iso file. For some isos you need to extract them and put files into udisk (I have no idea which, try it yourself or google "grub4dos boot iso [your boot iso]" )
+Not everything support booting from iso file. For some isos you need to extract them and put files into udisk (I have no idea which, try it yourself or google "grub4dos boot iso <what you want to boot from .iso>" )
 
-Above should be done before you put other unrelated files (your photo, music etc. for general storage) into udisk, to make sure the files is physically continous and not far away from MBR.
+Above should be done before you put other files (photo, music etc. for general storage) into udisk, to make sure the system or .iso files is physically continous and not far away from MBR.
 
-`grub4dos/menu.lst` is the key to success. It tells you where to put your files. Read it and modify it according to your need.
+**`grub4dos/menu.lst` is the key to success. Read it and modify it according to your need.**
 
-Note: `syslinux` and `grub4dos` binaries are not newest in this repo.
+> In this repo `syslinux` and `grub4dos` binaries are not latest.
