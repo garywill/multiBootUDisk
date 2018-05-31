@@ -11,9 +11,9 @@ Still able to use this udisk space as general storage. (All files are on an FAT3
 ## How it work
 Uses [syslinux](http://www.syslinux.org) as udisk's legacy BIOS bootloader.
 
-On syslinux menu, an option to boot [grub4dos](http://grub4dos.sourceforge.net/) (a fork of grub) ([Github page](https://github.com/chenall/grub4dos)).
+On syslinux menu, an entry to boot [grub4dos](http://grub4dos.sourceforge.net/) (a fork of grub) ([Github page](https://github.com/chenall/grub4dos)).
 
-On grub4dos menu there are many options to boot various maintain tools, systems, system installations.
+On grub4dos menu there are many entries to boot various maintain tools, systems, system installations. (You can customize your entries)
 
 ### Why this way?
 `syslinux` is a legacy bootloader which is competitable for many machines.
@@ -42,9 +42,10 @@ Procedure: (Following can be done by the shell script `makemultiboor.sh`.)
 
 Manually put your `.iso` files to udisk. 
 
-Not everything support booting from iso file. For some isos you need to extract them and put files into udisk (I have no idea which, try it yourself or google "grub4dos boot iso <what you want to boot from .iso>" )
+Some support booting from `.iso` file, some doesn't. For those that doesn't support, you need to extract them and put files into udisk. 
+To find out which support and which doesn't, try it yourself or google "grub4dos boot iso <what you want to boot from .iso>".
 
-Above should be done before you put other files (photo, music etc. for general storage) into udisk, to make sure the system or .iso files is physically continous and not far away from MBR.
+Above should be done before you put other files (photo, music etc. for general storage) into udisk, to make sure the system or `.iso` files is physically continous and not far away from MBR.
 
 **`grub4dos/menu.lst` is the key to success. Read it and modify it according to your need.**
 
